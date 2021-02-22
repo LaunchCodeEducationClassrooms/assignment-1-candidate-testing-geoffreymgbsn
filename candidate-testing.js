@@ -4,35 +4,79 @@ const input = require('readline-sync');
 
 // TODO 1.1a: Define candidateName // 
 let candidateName;
-// TODO 1.2a: Define question, correctAnswer, and candidateAnswer //
-let question;
-let correctAnswer;
+let question = '1) Who was the first American woman in space?';
+
+let correctAnswer = 'Sally Ride';
+let questions = [ '1) Who was the first American woman in space?',
+                  '2) True or false: 5000 meters = 5 kilometers.',
+                  '3) (5 + 3)/2 * 10 = ?',
+                  '4) Given the array [8, "Orbit", "Trajectory", 45], what entry is at index 2?',
+                  '5)  What is the minimum crew size for the ISS?'];
+let correctAnswers = ['Sally Ride',
+                      'true',
+                      40,
+                      'Trajectory',
+                      3]
+                      
+let candidateAnswers = ['a', 'b', 'c', 'd', 'e'];
 let candidateAnswer;
-let questions;
-let correctAnswers;
-let candidateAnswers;
+let correct = 0;
 
 
 function askForName() {
-  candidateName = console.log("Enter your name: ");
+  candidateName = input.question("Enter your name: ");
+  console.log(candidateName + '\n');
 
 }
 
 function askQuestion() {
-  // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
+  
+  for (let i = 0; i < questions.length; i++){
+   candidateAnswers[i] = input.question(questions [i] + " ");
+   
+  
+  };
+
+   console.log(candidateAnswers[2]);
+   
+  }
 
 
-}
+
 
 function gradeQuiz(candidateAnswers) {
+    
 
-  // TODO 1.2c: Let the candidate know if they have answered the question correctly or incorrectly // 
+    for (let i = 0; i < candidateAnswers.length; i++){
+        console.log(questions[i] + "\n");
+        console.log("Your answer: " + candidateAnswers[i]);
+        console.log("Correct answer: " + correctAnswers[i] + "\n");
 
 
-  let grade;
+    }
+
+    for (i = 0; i < candidateAnswers.length; i++){
+      
+        if (candidateAnswers[i].toString().toLowerCase() === correctAnswers[i].toString().toLowerCase()){
+            correct++;
+          }
+    }
   
 
-  return grade;
+
+  
+  let grade = correct/(5)*100;
+  
+  if (grade >= 80){
+    console.log (candidateName + " passed with a score of " + grade + "%");
+  }
+
+  else {
+    console.log (candidateName + " failed with a score of " + grade + "%");
+  }
+  
+
+  
 }
 
 function runProgram() {
@@ -41,6 +85,10 @@ function runProgram() {
   
   askQuestion();
   gradeQuiz(this.candidateAnswers);
+
+
+
+  
 }
 
 // Don't write any code below this line //
